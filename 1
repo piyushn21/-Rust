@@ -1,0 +1,74 @@
+use std::io;
+
+fn main() {
+    println!("Welcome to the Rust Basic App!");
+
+    loop {
+        println!("Please choose an option:");
+        println!("1. Greet");
+        println!("2. Add");
+        println!("3. Quit");
+
+        let mut choice = String::new();
+
+        io::stdin()
+            .read_line(&mut choice)
+            .expect("Failed to read line");
+
+        let choice: u32 = match choice.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Invalid input. Please enter a number.");
+                continue;
+            }
+        };
+
+        match choice {
+            1 => greet(),
+            2 => add(),
+            3 => {
+                println!("Goodbye!");
+                break;
+            }
+            _ => println!("Invalid choice. Please choose a valid option."),
+        }
+    }
+}
+
+fn greet() {
+    println!("Hello! Welcome to the Rust Basic App!");
+}
+
+fn add() {
+    println!("Enter two numbers to add:");
+
+    let mut num1 = String::new();
+    let mut num2 = String::new();
+
+    io::stdin()
+        .read_line(&mut num1)
+        .expect("Failed to read line");
+
+    io::stdin()
+        .read_line(&mut num2)
+        .expect("Failed to read line");
+
+    let num1: i32 = match num1.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid input. Please enter a number.");
+            return;
+        }
+    };
+
+    let num2: i32 = match num2.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid input. Please enter a number.");
+            return;
+        }
+    };
+
+    let result = num1 + num2;
+    println!("Result: {}", result);
+}
